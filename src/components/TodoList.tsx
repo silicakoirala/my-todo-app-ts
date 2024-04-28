@@ -1,5 +1,5 @@
 import React from 'react';
-import { Todo } from '../types'; // Assuming you have a Todo type defined
+import { Todo } from '../store/store'; // Assuming you have a Todo type defined
 
 interface TodoListProps {
   todos: Todo[];
