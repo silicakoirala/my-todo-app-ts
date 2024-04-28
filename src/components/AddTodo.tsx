@@ -2,22 +2,30 @@ import { useState } from "react";
 import { Todo } from "../interfaces/interfaces";
 import useStore from "../store/store";
 
-const AddTodo: React.FC = () => {
+const AddTodo = () => {
+  // State to manage the input field value
   const [text, setText] = useState<string>('');
-  const addTodo = useStore((state) => state.addTodo);
-  console.log("Text:", text);
 
+  const addTodo = useStore((state) => state.addTodo);
+
+  // Function to handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
+    // Trim the input value and return if it's empty
     if (!text.trim()) return;
     console.log("New Todo:", { id: Date.now(), text, completed: false });
 
+    // Create a new todo object with current timestamp as ID, input text, and false completion status
+    // Then add the new todo to the store
     const newTodo: Todo = { id: Date.now(), text, completed: false };
+
+    // Call the addTodo function to add the new todo
     addTodo(newTodo);
+    // Clear the input field
     setText('');
   }
-  console.log("Text: ", text);
+    // Render the form for adding todos
   return (
     <form onSubmit={handleSubmit}>
       <input
