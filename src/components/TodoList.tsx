@@ -1,29 +1,24 @@
-import React from 'react';
-import { Todo } from '../store/store'; // Assuming you have a Todo type defined
+import React from "react";
+import { Todo } from "../interfaces/interfaces";
+import useStore from "../store/store";
 
-interface TodoListProps {
-  todos: Todo[];
-}
-
-const TodoList: React.FC<TodoListProps> = ({ todos }) => {
-  console.log("Todos:", todos);
+const TodoList: React.FC<void> = () => {
+  let todos = useStore((state) => state.todos);
 
   return (
     <div>
       <h1>Todo List</h1>
-      
       <ul>
-        {todos.map((todo) => (
-          <li 
-            key={todo.id}
-            className={`flex items-center justify-between py-2 ${todo.completed ? 'line-through text-gray-500' : ''}`}
-          >
-            {todo.text}
-          </li>
-        ))}
+        {todos?.map((todo: Todo) => {
+          return (
+            <li key={todo.id} className={`flex items-center justify-between py-2 ${todo.completed ? "line-through text-gray-500" : ""}`}>
+              {todo.text}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
-}
+};
 
 export default TodoList;
