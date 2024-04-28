@@ -1,6 +1,6 @@
-import useStore from "../store/store";
 import { useState } from "react";
-import { Todo } from '../store/store';
+import { Todo } from "../interfaces/interfaces";
+import useStore from "../store/store";
 
 const AddTodo: React.FC = () => {
   const [text, setText] = useState<string>('');

@@ -1,17 +1,5 @@
-import {create} from 'zustand';
-
-interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
-}
-
-interface TodoStore {
-  todos: Todo[];
-  addTodo: (todo: Todo) => void;
-  removeTodo: (id: number) => void;
-  toggleTodo: (id: number) => void;
-}
+import { create } from "zustand";
+import { TodoStore } from "../interfaces/interfaces";
 
 const useStore = create<TodoStore>((set) => ({
   todos: [],
@@ -19,9 +7,7 @@ const useStore = create<TodoStore>((set) => ({
   removeTodo: (id) => set((state) => ({ todos: state.todos.filter((todo) => todo.id !== id) })),
   toggleTodo: (id) =>
     set((state) => ({
-      todos: state.todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      ),
+      todos: state.todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
     })),
 }));
 
