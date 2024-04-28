@@ -1,19 +1,23 @@
-import useStore  from "../store/store";
+import useStore from "../store/store";
+import { useState } from "react";
+import { Todo } from '../store/store';
 
 const AddTodo: React.FC = () => {
   const [text, setText] = useState<string>('');
-  const addTodo = useStore ((state)=> state.addTodo);
+  const addTodo = useStore((state) => state.addTodo);
+  console.log("Text:", text);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    addTodo({
-      id: Math.floor(Math.random() * 1000),
-      text,
-      completed: false
-    });
+
+    if (!text.trim()) return;
+    console.log("New Todo:", { id: Date.now(), text, completed: false });
+
+    const newTodo: Todo = { id: Date.now(), text, completed: false };
+    addTodo(newTodo);
     setText('');
   }
-console.log("Text: ", text);
+  console.log("Text: ", text);
   return (
     <form onSubmit={handleSubmit}>
       <input
